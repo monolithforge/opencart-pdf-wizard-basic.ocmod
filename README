@@ -1,0 +1,16 @@
+
+* @category   MonolithForge/OpenCart/PdfWizard
+* @package    monolithforge-opencart-pdf-wizard
+* @author     Original Author <support@monolithforge.com>
+* @copyright  2017-2018 Monolith Forge, LLC
+* @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
+* @version    3-3-dev
+
+Changelog:
+
+3-2 (2018-01-09)
+    Allow PDF button for order invoice on order info admin view
+
+3-1
+    Allow PDF button for order invoice on order info catalog view
+

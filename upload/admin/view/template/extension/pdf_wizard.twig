@@ -1,0 +1,538 @@
+{##
+/**
+ * @category   MonolithForge/OpenCart/PdfWizard
+ * @package    monolithforge-opencart-pdf-wizard
+ * @author     Original Author <support@monolithforge.com>
+ * @copyright  2017-2018 Monolith Forge, LLC
+ * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
+ * @version    3-3-dev
+ */
+#}
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="submit" form="form-store" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ back }}" data-toggle="tooltip" title="{{ button_back }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% if (error_warning) %}
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endif %}
+        {% if (success) %}
+        <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> Edit PDF Wizard Settings</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-pdf-wizard" class="form-horizontal">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab-settings" data-toggle="tab">{{ tab_settings }}</a></li>
+                    <li><a href="#tab-defaults" data-toggle="tab">{{ tab_theme }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-settings">
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="pdf_wizard_settings_use_pdf_button_on_order_details">{{ entry_basics_use_pdf_on_order_details }}</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline">
+                                          <input type="radio" name="pdf_wizard_settings_use_pdf_button_on_order_details" id="pdf_wizard_settings_use_pdf_button_on_order_details_1" value="1"{% if pdf_wizard_settings_use_pdf_button_on_order_details == 1 %} checked{% endif %}> Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" name="pdf_wizard_settings_use_pdf_button_on_order_details" id="pdf_wizard_settings_use_pdf_button_on_order_details_0" value="0"{% if pdf_wizard_settings_use_pdf_button_on_order_details == 0 %} checked{% endif %}> No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="pdf_wizard_settings_use_pdf_button_on_admin_order_info">{{ entry_basics_use_pdf_on_admin_order_info }}</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline">
+                                          <input type="radio" name="pdf_wizard_settings_use_pdf_button_on_admin_order_info" id="pdf_wizard_settings_use_pdf_button_on_admin_order_info_1" value="1"{% if pdf_wizard_settings_use_pdf_button_on_admin_order_info == 1 %} checked{% endif %}> Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                          <input type="radio" name="pdf_wizard_settings_use_pdf_button_on_admin_order_info" id="pdf_wizard_settings_use_pdf_button_on_admin_order_info_0" value="0"{% if pdf_wizard_settings_use_pdf_button_on_admin_order_info == 0 %} checked{% endif %}> No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="tab-defaults">
+                        
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-8">
+
+                                <!-- Nav sub tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#font" aria-controls="font" role="tab" data-toggle="tab">Font</a></li>
+                                    <li role="presentation"><a href="#xheader" aria-controls="xheader" role="tab" data-toggle="tab">Header</a></li>
+                                    <li role="presentation"><a href="#xfooter" aria-controls="xfooter" role="tab" data-toggle="tab">Footer</a></li>
+                                    <li role="presentation"><a href="#xlegend" aria-controls="xlegend" role="tab" data-toggle="tab">Legend</a></li>
+                                    <li role="presentation"><a href="#xcelllabel" aria-controls="xcelllabel" role="tab" data-toggle="tab">Cell Label</a></li>
+                                    <li role="presentation"><a href="#xcelltext" aria-controls="xcelltext" role="tab" data-toggle="tab">Cell Text</a></li>
+                                </ul>
+
+                                <!-- Sub tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="font">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_font">{{ entry_basics_default_font }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_font" id="pdf_wizard_settings_default_font" class="form-control">
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_font == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                        {#
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_add_new_font">Add New Font</label>
+                                            <div class="col-sm-10">
+                                                <button class="btn btn-default">Advanced @TODO</button>
+                                            </div>
+                                        </div>
+                                        #}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_font_size">{{ entry_basics_default_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_font_size" id="pdf_wizard_settings_default_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_font_color">{{ entry_basics_default_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_font_color" id="pdf_wizard_settings_default_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_font_color_preview">{{ entry_basics_default_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_font_color_preview" id="pdf_wizard_settings_default_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_font_color_preview }}" value="{{ pdf_wizard_settings_default_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="xheader">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_use_logo">{{ entry_basics_default_header_use_logo }}</label>
+                                            <div class="col-sm-10">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_use_logo" id="pdf_wizard_settings_default_header_use_logo_1" value="1"{% if pdf_wizard_settings_default_header_use_logo == 1 %} checked{% endif %}> Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_use_logo" id="pdf_wizard_settings_default_header_use_logo_0" value="0"{% if pdf_wizard_settings_default_header_use_logo == 0 %} checked{% endif %}> No
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_use_store_name">{{ entry_basics_default_header_store_name_use }}</label>
+                                            <div class="col-sm-10">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_use_store_name" id="pdf_wizard_settings_default_header_use_store_name_1" value="1"{% if pdf_wizard_settings_default_header_use_store_name == 1 %} checked{% endif %}> Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_use_store_name" id="pdf_wizard_settings_default_header_use_store_name_0" value="0"{% if pdf_wizard_settings_default_header_use_store_name == 0 %} checked{% endif %}> No
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_title_font_family">{{ entry_basics_default_header_title_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_header_title_font_family" id="pdf_wizard_settings_default_header_title_font_family" class="form-control">
+                                                    <option value="inherit"{% if pdf_wizard_settings_default_header_title_font_family == "inherit" %} selected{% endif %}>inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_header_title_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                            
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_title_font_size">{{ entry_basics_default_header_title_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_header_title_font_size" id="pdf_wizard_settings_default_header_title_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_header_title_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_title_font_color">{{ entry_basics_default_header_title_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_title_font_color" id="pdf_wizard_settings_default_header_title_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_header_store_name_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_header_title_font_color_preview">{{ entry_basics_default_header_title_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_title_font_color_preview" id="pdf_wizard_settings_default_header_title_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_header_title_font_color_preview }}" value="{{ pdf_wizard_settings_default_header_title_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_name_font_family">{{ entry_basics_default_header_store_name_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_header_store_name_font_family" id="pdf_wizard_settings_default_header_store_name_font_family" class="form-control">
+                                                    <option value="inherit"{% if pdf_wizard_settings_default_header_store_name_font_family == "inherit" %} selected{% endif %}>inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_header_store_name_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                            
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_name_font_size">{{ entry_basics_default_header_store_name_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_header_store_name_font_size" id="pdf_wizard_settings_default_header_store_name_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_header_store_name_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="entry_basics_default_header_store_name_font_color">{{ entry_basics_default_header_store_name_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_store_name_font_color" id="pdf_wizard_settings_default_header_store_name_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_header_store_name_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_header_store_name_font_color_preview">{{ entry_basics_default_header_store_name_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_store_name_font_color_preview" id="pdf_wizard_settings_default_header_store_name_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_header_store_name_font_color_preview }}" value="{{ pdf_wizard_settings_default_header_store_name_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_address_use">{{ entry_basics_default_header_store_address_use }}</label>
+                                            <div class="col-sm-10">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_store_address_use" id="pdf_wizard_settings_default_header_store_address_use_1" value="1"{% if pdf_wizard_settings_default_header_store_address_use == 1 %} checked{% endif %}> Yes
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="pdf_wizard_settings_default_header_store_address_use" id="pdf_wizard_settings_default_header_store_address_use_0" value="0"{% if pdf_wizard_settings_default_header_store_address_use == 0 %} checked{% endif %}> No
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_address_font_family">{{ entry_basics_default_header_store_address_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_header_store_address_font_family" id="pdf_wizard_settings_default_header_store_address_font_family" class="form-control">
+                                                    <option value="inherit">inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_header_store_address_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_address_font_size">{{ entry_basics_default_header_store_address_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_header_store_address_font_size" id="pdf_wizard_settings_default_header_store_address_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_header_store_address_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_header_store_address_font_color">{{ entry_basics_default_header_store_address_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_store_address_font_color" id="pdf_wizard_settings_default_header_store_address_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_header_store_address_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_header_store_address_font_color_preview">{{ entry_basics_default_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_header_store_address_font_color_preview" id="pdf_wizard_settings_default_header_store_address_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_header_store_address_font_color_preview }}" value="{{ pdf_wizard_settings_default_header_store_address_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="xfooter">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_footer_font_family">{{ entry_basics_default_footer_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_footer_font_family" id="pdf_wizard_settings_default_footer_font_family" class="form-control">
+                                                    <option value="inherit">inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_footer_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                            
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_footer_font_size">{{ entry_basics_default_footer_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_footer_font_size" id="pdf_wizard_settings_default_footer_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_footer_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_footer_font_color">{{ entry_basics_default_footer_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_footer_font_color" id="pdf_wizard_settings_default_footer_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_footer_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_footer_font_color_preview">{{ entry_basics_default_footer_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_footer_font_color_preview" id="pdf_wizard_settings_default_footer_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_footer_font_color_preview }}" value="{{ pdf_wizard_settings_default_footer_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="xlegend">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_legend_font_family">{{ entry_basics_default_legend_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_legend_font_family" id="pdf_wizard_settings_default_legend_font_family" class="form-control">
+                                                    <option value="inherit">inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_legend_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                            
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_legend_font_size">{{ entry_basics_default_legend_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_legend_font_size" id="pdf_wizard_settings_default_legend_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_legend_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_legend_font_color">{{ entry_basics_default_legend_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_legend_font_color" id="pdf_wizard_settings_default_legend_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_legend_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_legend_font_color_preview">{{ entry_basics_default_legend_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_legend_font_color_preview" id="pdf_wizard_settings_default_legend_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_legend_font_color_preview }}" value="{{ pdf_wizard_settings_default_legend_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_legend_background_color">{{ entry_basics_default_legend_background_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_legend_background_color" id="pdf_wizard_settings_default_legend_background_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_legend_background_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_legend_background_color_preview">{{ entry_basics_default_legend_background_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_legend_background_color_preview" id="pdf_wizard_settings_default_legend_background_color_preview" class="form-control" type="color" title="{{ entry_basics_default_legend_background_color_preview }}" value="{{ pdf_wizard_settings_default_legend_background_color_preview }}">
+                                            </div>
+                                        </div>
+
+                                        
+                                        
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="xcelllabel">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_label_font_family">{{ entry_basics_default_cell_label_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_cell_label_font_family" id="pdf_wizard_settings_default_cell_label_font_family" class="form-control">
+                                                    <option value="inherit">inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_cell_label_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_label_font_size">{{ entry_basics_default_cell_label_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_cell_label_font_size" id="pdf_wizard_settings_default_cell_label_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_cell_label_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_label_font_color">{{ entry_basics_default_cell_label_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_cell_label_font_color" id="pdf_wizard_settings_default_cell_label_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_cell_label_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_cell_label_font_color_preview">{{ entry_basics_default_cell_label_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_cell_label_font_color_preview" id="pdf_wizard_settings_default_cell_label_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_cell_label_font_color_preview }}" value="{{ pdf_wizard_settings_default_cell_label_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="xcelltext">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_text_font_family">{{ entry_basics_default_cell_text_font_family }}</label>
+                                            <div class="col-sm-10">
+                                                <select name="pdf_wizard_settings_default_cell_text_font_family" id="pdf_wizard_settings_default_cell_text_font_family" class="form-control">
+                                                    <option value="inherit">inherit</option>
+                                                    {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                        <option value="{{pdf_wizard_font.name}}"{% if pdf_wizard_settings_default_cell_text_font_family == pdf_wizard_font.name %} selected{% endif %}>{{pdf_wizard_font.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {# preview font family in a select or similar?
+                                            {% for pdf_wizard_font in pdf_wizard_fonts %}
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-10" style="{{ pdf_wizard_font.style }}">{{ pdf_wizard_font.name }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        #}
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_text_font_size">{{ entry_basics_default_cell_text_font_size }}</label>
+                                            <div class="col-sm-10">
+                                                <input name="pdf_wizard_settings_default_cell_text_font_size" id="pdf_wizard_settings_default_cell_text_font_size" class="form-control" type="number" value="{{ pdf_wizard_settings_default_cell_text_font_size }}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="pdf_wizard_settings_default_cell_text_font_color">{{ entry_basics_default_cell_text_font_color }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_cell_text_font_color" id="pdf_wizard_settings_default_cell_text_font_color" class="form-control" type="text" value="{{ pdf_wizard_settings_default_cell_text_font_color }}">
+                                            </div>
+                                            <label class="control-label hidden" for="pdf_wizard_settings_default_cell_text_font_color_preview">{{ entry_basics_default_cell_text_font_color_preview }}</label>
+                                            <div class="col-sm-2">
+                                                <input name="pdf_wizard_settings_default_cell_text_font_color_preview" id="pdf_wizard_settings_default_cell_text_font_color_preview" class="form-control" type="color" title="{{ entry_basics_default_cell_text_font_color_preview }}" value="{{ pdf_wizard_settings_default_cell_text_font_color_preview }}">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                            {# placeholder for demo (last order link)
+                            <div class="col-xs-12 col-lg-4">
+                                <form action="{{ demo }}" method="post" enctype="multipart/form-data" id="demo" class="form-horizontal">
+                                    <a href="{{demo}}" target="_blank">demo</a>
+                                </form>
+                            </div>
+                            #}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript"><!--
+
+$(function() {
+    var color_previews = [
+        { xcolor: "pdf_wizard_settings_default_font_color",                       xpreview: "pdf_wizard_settings_default_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_header_title_font_color",     xpreview: "pdf_wizard_settings_default_header_title_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_header_store_name_font_color",     xpreview: "pdf_wizard_settings_default_header_store_name_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_header_store_address_font_color",  xpreview: "pdf_wizard_settings_default_header_store_address_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_footer_font_color",                xpreview: "pdf_wizard_settings_default_footer_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_legend_font_color",                xpreview: "pdf_wizard_settings_default_legend_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_legend_background_color",          xpreview: "pdf_wizard_settings_default_legend_background_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_cell_label_font_color",            xpreview: "pdf_wizard_settings_default_cell_label_font_color_preview" },
+        { xcolor: "pdf_wizard_settings_default_cell_text_font_color",             xpreview: "pdf_wizard_settings_default_cell_text_font_color_preview" },
+    ];
+    for (var i=0; i<color_previews.length; i++) {
+        $("#"+color_previews[i].xcolor).on("change", function(e) {
+            for (var x=0; x<color_previews.length; x++) {
+                if ($(this).attr("id") == color_previews[x].xcolor) {
+                    $("#"+color_previews[x].xpreview).val($(this).val());
+                }
+            }
+        });
+        $("#"+color_previews[i].xpreview).on("change", function(e) {
+            for (var x=0; x<color_previews.length; x++) {
+                if ($(this).attr("id") == color_previews[x].xpreview) {
+                    $("#"+color_previews[x].xcolor).val($(this).val());
+                }
+            }
+        });
+    }
+});
+
+--></script>
+
+</div>
+{{ footer }}
+
