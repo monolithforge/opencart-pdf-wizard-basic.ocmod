@@ -1,14 +1,21 @@
-
 * @category   MonolithForge/OpenCart/PdfWizard
 * @package    monolithforge-opencart-pdf-wizard
 * @author     Original Author <support@monolithforge.com>
 * @copyright  2017-2018 Monolith Forge, LLC
 * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
-* @version    3-3-dev
+* @version    3-3
+
+-------
+
+Official Git URL: https://gitlab.com/MonolithForge/opencart-pdf-wizard-basic.ocmod
+
+DEMO: https://playground.opencartforge.com/u/m/monolithforge/demo/200/3.0.2.0/admin/index.php?route=extension/pdf_wizard
+
+-------
 
 Changelog:
 
-3-3 (Dev)
+3-3
     Moved code to GitLab for start of public
 
 3-2 (2018-01-09)
@@ -16,4 +23,3 @@ Changelog:
 
 3-1
     Allow PDF button for order invoice on order info catalog view
-

@@ -6,7 +6,7 @@
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-3-dev
+ * @version    3-3
  */
 class PdfWizard {
     public $default_data = array(
@@ -51,4 +51,3 @@ class PdfWizard {
         "pdf_wizard_settings_default_cell_text_font_color_preview" =>            "#333333",
     );
 }
-

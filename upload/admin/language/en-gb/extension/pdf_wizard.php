@@ -6,7 +6,7 @@
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-3-dev
+ * @version    3-3
  */
 
 // Heading
@@ -65,4 +65,3 @@ $_['entry_basics_default_cell_text_font_color']             = 'Font Color';
 // Tabs
 $_['tab_settings']                                          = 'Settings';
 $_['tab_theme']                                             = 'Default Theme';
-
