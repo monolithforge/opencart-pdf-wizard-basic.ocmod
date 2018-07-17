@@ -15,6 +15,9 @@ DEMO: https://playground.opencartforge.com/u/m/monolithforge/demo/200/3.0.2.0/ad
 
 Changelog:
 
+3-4
+    Fixed 'column_name' in admin order PDF of products header
+
 3-3
     Moved code to GitLab for start of public
 

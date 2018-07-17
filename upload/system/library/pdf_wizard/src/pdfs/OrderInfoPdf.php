@@ -128,8 +128,14 @@ class OrderInfoPdf extends BasePdf {
             $this->fill_definitions["legend_cell"],
             $this->fill_definitions["legend_cell"]
         ));
+        if (trim($this->data["language"]->get("column_name")) == "column_name") {
+            $column_name = $this->data["language"]->get("column_product"); //admin model calls this column_product
+        }
+        else {
+            $column_name = $this->data["language"]->get("column_name"); //catalog model calls this column_name
+        }
         $this->PDF_MC_Table_Row(array(
-            $this->_cleanText($this->data["language"]->get("column_name")),
+            $this->_cleanText($column_name),
             $this->_cleanText($this->data["language"]->get("column_model")),
             $this->_cleanText($this->data["language"]->get("column_quantity")),
             $this->_cleanText($this->data["language"]->get("column_price")),
@@ -307,3 +313,4 @@ class OrderInfoPdf extends BasePdf {
         }
     }
 }
+
