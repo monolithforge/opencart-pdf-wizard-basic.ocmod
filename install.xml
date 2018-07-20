@@ -1,7 +1,7 @@
 <modification>
 	<name>PDF Wizard</name>
 	<code>monolithforge-pdf-wizard</code>
-	<version>3-5-dev</version>
+	<version>3-5</version>
 	<author>monolithforge.com</author>
 	<link>https://www.monolithforge.com</link>
 	<file path="admin/controller/common/column_left.php">

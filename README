@@ -3,7 +3,7 @@
 * @author     Original Author <support@monolithforge.com>
 * @copyright  2017-2018 Monolith Forge, LLC
 * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
-* @version    3-5-dev
+* @version    3-5
 
 -------
 
@@ -13,7 +13,36 @@ DEMO: https://playground.opencartforge.com/u/m/monolithforge/demo/200/3.0.2.0/ad
 
 -------
 
+PDF Wizard Install Instructions
+
+1. Go to Extensions/Installer on left menu
+2. Make sure the apache user has permissions to write to the following directories:
+    chmod 0755 or 0777 admin/controller/extension
+    chmod 0755 or 0777 admin/language/en-gb/extension
+    chmod 0755 or 0777 admin/model/extension
+    chmod 0755 or 0777 admin/view/stylesheet
+    chmod 0755 or 0777 admin/view/template/extension
+    chmod 0755 or 0777 catalog/controller/extension/module
+    chmod 0755 or 0777 system/library
+    
+    If 0755 does not work try 0777
+    
+3. Click on the upload button and upload the file opencart-pdf-wizard-basic.ocmod.zip
+    If there are errors, make sure step 2 was completed.
+    If step 2 was not completed correctly, go to Extensions/Installer and delete from history the opencart-pdf-wizard-basic.ocmod.zip and try again.
+4. Go to Dashboard and click on the Gear button on the top right of this page.
+    When the popup occurs, Click on both refresh buttons for Theme and SASS. 
+5. Go to System/Users/User Groups and click on Administrators (and/or other groups needing permissions for PDF Wizard).
+6. Check Access Permission and Modify Permission for extension/pdf_wizard and click save.
+7. Go to Extensions/Modificatoins and click on the refresh button in the top right of this screen.
+8. Now Extensions/PDF Wizard should be visible within the left menu.
+
+-------
+
 Changelog:
+
+3-5
+    Added installation instructions to README
 
 3-4
     Fixed 'column_name' in admin order PDF of products header
