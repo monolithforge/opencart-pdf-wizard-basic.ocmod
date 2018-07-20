@@ -1,3 +1,7 @@
+Summary:
+This PDF Wizard basic (ocmod extension) adds the ability to download invoices in PDF format on both of your admin/frontend Opencart websites. 
+Colors and font families can be altered to match your stores design.
+
 * @category   MonolithForge/OpenCart/PdfWizard
 * @package    monolithforge-opencart-pdf-wizard
 * @author     Original Author <support@monolithforge.com>
@@ -41,6 +45,8 @@ PDF Wizard Install Instructions
 
 Changelog:
 
+3-6
+    Added Summary to README
 3-5
     Added installation instructions to README
 
