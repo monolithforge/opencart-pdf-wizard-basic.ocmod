@@ -6,7 +6,7 @@
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-6-dev
+ * @version    3-6-beta1
  */
 class ControllerExtensionPdfWizard extends Controller { 
 	private $error = array();
@@ -481,4 +481,3 @@ class ControllerExtensionPdfWizard extends Controller {
 
     
 }
-

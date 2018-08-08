@@ -6,7 +6,7 @@
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-6-dev
+ * @version    3-6-beta1
  */
 
 include_once(dirname(__FILE__)."/../vendor/tfpdf/font/unifont/ttfonts.php");
@@ -569,4 +569,3 @@ class BasePdf extends tFPDF {
         return $returnAsString ? implode($seperator, $rgbArray) : $rgbArray; // returns the rgb string or the associative array
     }
 }
-
