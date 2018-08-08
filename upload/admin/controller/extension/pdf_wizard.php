@@ -129,7 +129,12 @@ class ControllerExtensionPdfWizard extends Controller {
         }
         
         // Load core fonts
-        $core_fonts_dir = (strcmp(VERSION,'3.0.0.0')>=0) ? DIR_SYSTEM.'library/pdf_wizard/src/vendor/fpdf181/font' : DIR_SYSTEM.'fpdf181/font';
+        if (extension_loaded('mbstring')) {
+            $core_fonts_dir = (strcmp(VERSION,'3.0.0.0')>=0) ? DIR_SYSTEM.'library/pdf_wizard/src/vendor/tfpdf/font' : DIR_SYSTEM.'tfpdf/font';
+        }
+        else {
+            $core_fonts_dir = (strcmp(VERSION,'3.0.0.0')>=0) ? DIR_SYSTEM.'library/pdf_wizard/src/vendor/fpdf181/font' : DIR_SYSTEM.'tfpdf/font';
+        }
         $core_font_files = array();
         $path = array($core_fonts_dir . '/*');
         while (count($path) != 0) {
@@ -143,12 +148,25 @@ class ControllerExtensionPdfWizard extends Controller {
         }
         $core_fonts = array();
         foreach ($core_font_files as $core_font_file) {
-            include($core_font_file);
-            if (in_array($name, array("Symbol", "ZapfDingbats"))) {
-                continue;
+            if (substr($core_font_file, -4) == ".php") {
+                include($core_font_file);
+                if (in_array($name, array("Symbol", "ZapfDingbats"))) {
+                    continue;
+                }
+                $core_fonts[] = $name;
             }
-            $core_fonts[] = $name;
+            elseif (substr($core_font_file, -4) == ".ttf" && strpos($core_font_file, "unifont") > -1) {
+                $core_font_file_split = explode("/", $core_font_file);
+                
+                //these unicode fonts aren't compiled correctly in tFPDF?
+                if (strpos($core_font_file_split[count($core_font_file_split)-1], "DejaVuSerif") > -1) {
+                    continue;
+                }
+                
+                $core_fonts[] = "(unifont) ".substr_replace($core_font_file_split[count($core_font_file_split)-1], "", -4);
+            }
         }
+        
         $data["pdf_wizard_fonts"] = array();
         $data["pdf_wizard_fonts"][] = array(
             "name" => "Arial", //Arial is synonymous with Helvetica; sans serif
@@ -177,6 +195,7 @@ class ControllerExtensionPdfWizard extends Controller {
                 "style" => $style." font-size:16px;"
             );
         }
+        
         // end Load core fonts
         
         $this->response->setOutput($this->load->view('extension/pdf_wizard', $data));
@@ -242,9 +261,9 @@ class ControllerExtensionPdfWizard extends Controller {
                 
                 // Use the FPDF package from http://www.fpdf.org/
                 $cwd = getcwd();
-                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
                 chdir( DIR_SYSTEM.$dir );
-                require_once( 'src/vendor/fpdf181/fpdf.php' );
+                require_once( 'src/vendor/tfpdf/tfpdf.php' );
                 chdir( $cwd );
                 
                 if ($order_info['invoice_no']) {
@@ -435,7 +454,7 @@ class ControllerExtensionPdfWizard extends Controller {
                 
                 // Instanciation of inherited class
                 $cwd = getcwd();
-                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
                 chdir( DIR_SYSTEM.$dir );
                 require_once( 'src/pdfs/OrderInfoPdf.php' );
                 chdir( $cwd );
@@ -462,3 +481,4 @@ class ControllerExtensionPdfWizard extends Controller {
 
     
 }
+

@@ -47,6 +47,8 @@ Changelog:
 
 3-6
     Added Summary to README
+    Switch to tFPDF for Turkish compatibility using (unifont) DejaVuSans
+        requires: PHP mbstring extension
 3-5
     Added installation instructions to README
 

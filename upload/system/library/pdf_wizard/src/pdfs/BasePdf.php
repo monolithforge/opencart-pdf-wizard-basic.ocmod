@@ -8,7 +8,10 @@
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
  * @version    3-6-dev
  */
-class BasePdf extends FPDF {
+
+include_once(dirname(__FILE__)."/../vendor/tfpdf/font/unifont/ttfonts.php");
+
+class BasePdf extends tFPDF {
     
     protected $default_font = "Arial";
     
@@ -295,6 +298,10 @@ class BasePdf extends FPDF {
     
     protected function _getFpdfFontFamilyAndStyleByName($name)
     {
+        if (strpos($name, "(unifont) ") > -1) {
+            $name = substr_replace($name, "", 0, 9);
+        }
+        
         $return_val = array(
             "font_family" => "Arial",
             "font_style" => "",
@@ -304,6 +311,7 @@ class BasePdf extends FPDF {
         $stripped_name = str_ireplace("-Bold", "", $stripped_name);
         $stripped_name = str_ireplace("-BoldOblique", "", $stripped_name);
         $stripped_name = str_ireplace("-Oblique", "", $stripped_name);
+        $stripped_name = str_ireplace("-Sans", "", $name);
         $stripped_name = str_ireplace("TimesItalic", "Times", $stripped_name);
         $stripped_name = str_ireplace("Times-Italic", "Times", $stripped_name);
         $stripped_name = str_ireplace("Times-Roman", "Times", $stripped_name);
@@ -326,8 +334,16 @@ class BasePdf extends FPDF {
     
     protected function _setFont($font_definition)
     {
-        $this->SetFont($this->font_definitions[$font_definition]["font_family"],$this->font_definitions[$font_definition]["font_style"],$this->font_definitions[$font_definition]["font_size"]);
-        $this->SetTextColor($this->font_definitions[$font_definition]["font_color"]["R"],$this->font_definitions[$font_definition]["font_color"]["G"],$this->font_definitions[$font_definition]["font_color"]["B"]);
+        if (strpos($this->font_definitions[$font_definition]["font_family"], "DejaVuSans") > -1) {
+            $font_family = "DejaVuSans";
+            $this->AddFont($font_family, '', trim($this->font_definitions[$font_definition]["font_family"]).".ttf", true);
+            $this->SetFont($font_family,'',$this->font_definitions[$font_definition]["font_size"]);
+            $this->SetTextColor($this->font_definitions[$font_definition]["font_color"]["R"],$this->font_definitions[$font_definition]["font_color"]["G"],$this->font_definitions[$font_definition]["font_color"]["B"]);
+        }
+        else {
+            $this->SetFont($this->font_definitions[$font_definition]["font_family"],$this->font_definitions[$font_definition]["font_style"],$this->font_definitions[$font_definition]["font_size"]);
+            $this->SetTextColor($this->font_definitions[$font_definition]["font_color"]["R"],$this->font_definitions[$font_definition]["font_color"]["G"],$this->font_definitions[$font_definition]["font_color"]["B"]);
+        }
     }
     
     protected function _setFill($fill_definition = null)
@@ -344,7 +360,7 @@ class BasePdf extends FPDF {
     
     protected function _cleanText($txt)
     {
-        return utf8_decode(html_entity_decode($txt));
+        return html_entity_decode($txt);
     }
     
     
@@ -498,7 +514,7 @@ class BasePdf extends FPDF {
             }
             if($c==' ')
                 $sep=$i;
-            $l+=$cw[$c];
+            $l+=@$cw[$c];
             if($l>$wmax)
             {
                 if($sep==-1)
@@ -553,3 +569,4 @@ class BasePdf extends FPDF {
         return $returnAsString ? implode($seperator, $rgbArray) : $rgbArray; // returns the rgb string or the associative array
     }
 }
+
