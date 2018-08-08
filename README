@@ -46,9 +46,11 @@ PDF Wizard Install Instructions
 Changelog:
 
 3-6
-    Added Summary to README
-    Switch to tFPDF for Turkish compatibility using (unifont) DejaVuSans
-        requires: PHP mbstring extension
+    - REQUIRED PHP EXTENSION: "mbstring"... most php installs have this included ;)
+        Switch to tFPDF from FPDF too support UNICODE fonts (Turkish, for example, DejaVuSans)
+    
+    - Added Summary to README
+    
 3-5
     Added installation instructions to README
 
