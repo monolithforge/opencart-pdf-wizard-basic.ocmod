@@ -42,9 +42,9 @@ class ControllerExtensionPdfWizard extends Controller {
     public function demo() {
         // Use the FPDF package from http://www.fpdf.org/
         $cwd = getcwd();
-        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
         chdir( DIR_SYSTEM.$dir );
-        require_once( 'Classes/fpdf181/fpdf.php' );
+        require_once( 'Classes/tfpdf/tfpdf.php' );
         chdir( $cwd );
         
         $pdf = new FPDF();
@@ -111,7 +111,7 @@ class ControllerExtensionPdfWizard extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
         
         $cwd = getcwd();
-        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
         chdir( DIR_SYSTEM.$dir );
         require_once( DIR_SYSTEM.'library/pdf_wizard/PdfWizard.php' );
         $pdf_wizard = new PdfWizard;
@@ -224,7 +224,7 @@ class ControllerExtensionPdfWizard extends Controller {
         $this->load->language('information/contact');
         
         $cwd = getcwd();
-        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
         chdir( DIR_SYSTEM.$dir );
         require_once( DIR_SYSTEM.'library/pdf_wizard/PdfWizard.php' );
         $pdf_wizard = new PdfWizard;

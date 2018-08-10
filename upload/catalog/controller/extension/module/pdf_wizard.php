@@ -16,7 +16,7 @@ class ControllerExtensionModulePdfWizard extends Controller {
         
         
         $cwd = getcwd();
-        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+        $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
         chdir( DIR_SYSTEM.$dir );
         require_once( DIR_SYSTEM.'library/pdf_wizard/PdfWizard.php' );
         $pdf_wizard = new PdfWizard;
@@ -54,9 +54,9 @@ class ControllerExtensionModulePdfWizard extends Controller {
                 
                 // Use the FPDF package from http://www.fpdf.org/
                 $cwd = getcwd();
-                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
                 chdir( DIR_SYSTEM.$dir );
-                require_once( 'src/vendor/fpdf181/fpdf.php' );
+                require_once( 'src/vendor/tfpdf/tfpdf.php' );
                 chdir( $cwd );
                 
                 if ($order_info['invoice_no']) {
@@ -247,7 +247,7 @@ class ControllerExtensionModulePdfWizard extends Controller {
                 
                 // Instanciation of inherited class
                 $cwd = getcwd();
-                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'fpdf181';
+                $dir = (strcmp(VERSION,'3.0.0.0')>=0) ? 'library/pdf_wizard' : 'tfpdf';
                 chdir( DIR_SYSTEM.$dir );
                 require_once( 'src/pdfs/OrderInfoPdf.php' );
                 chdir( $cwd );
