@@ -7,7 +7,7 @@ Colors and font families can be altered to match your stores design.
 * @author     Original Author <support@monolithforge.com>
 * @copyright  2017-2018 Monolith Forge, LLC
 * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
-* @version    3-6
+* @version    3-7
 
 -------
 
@@ -44,6 +44,9 @@ PDF Wizard Install Instructions
 -------
 
 Changelog:
+
+3-7
+    Unused file cleanup to get under 5MB opencart threshold
 
 3-6
     - REQUIRED PHP EXTENSION: "mbstring"... most php installs have this included ;)

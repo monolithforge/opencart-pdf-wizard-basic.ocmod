@@ -8,7 +8,7 @@ require_once("BasePdf.php");
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-6
+ * @version    3-7
  */
 class OrderInfoPdf extends BasePdf {
     
