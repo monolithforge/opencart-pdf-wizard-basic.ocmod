@@ -311,7 +311,7 @@ class BasePdf extends tFPDF {
         $stripped_name = str_ireplace("-Bold", "", $stripped_name);
         $stripped_name = str_ireplace("-BoldOblique", "", $stripped_name);
         $stripped_name = str_ireplace("-Oblique", "", $stripped_name);
-        $stripped_name = str_ireplace("-Sans", "", $name);
+        $stripped_name = str_ireplace("-Sans", "", $stripped_name);
         $stripped_name = str_ireplace("TimesItalic", "Times", $stripped_name);
         $stripped_name = str_ireplace("Times-Italic", "Times", $stripped_name);
         $stripped_name = str_ireplace("Times-Roman", "Times", $stripped_name);
@@ -341,6 +341,11 @@ class BasePdf extends tFPDF {
             $this->SetTextColor($this->font_definitions[$font_definition]["font_color"]["R"],$this->font_definitions[$font_definition]["font_color"]["G"],$this->font_definitions[$font_definition]["font_color"]["B"]);
         }
         else {
+            $font_family = $this->font_definitions[$font_definition]["font_family"];
+            if (strtolower($font_family) == "arial") {
+                $font_family = "Helvetica";
+            }
+            $this->AddFont($font_family, $this->font_definitions[$font_definition]["font_style"]);
             $this->SetFont($this->font_definitions[$font_definition]["font_family"],$this->font_definitions[$font_definition]["font_style"],$this->font_definitions[$font_definition]["font_size"]);
             $this->SetTextColor($this->font_definitions[$font_definition]["font_color"]["R"],$this->font_definitions[$font_definition]["font_color"]["G"],$this->font_definitions[$font_definition]["font_color"]["B"]);
         }
