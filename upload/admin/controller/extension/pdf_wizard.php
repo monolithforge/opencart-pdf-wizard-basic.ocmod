@@ -196,6 +196,14 @@ class ControllerExtensionPdfWizard extends Controller {
             );
         }
         
+        $version_split = explode("_", VERSION);
+        if (version_compare($version_split[0], "3.1.0.0") >= 0) {
+            $data["bs4"] = true;
+        }
+        else {
+            $data["bs4"] = false;
+        }
+        
         // end Load core fonts
         
         $this->response->setOutput($this->load->view('extension/pdf_wizard', $data));
