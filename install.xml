@@ -86,6 +86,13 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 				else {
 					$data["pdf_wizard_settings_use_pdf_button_on_admin_order_info"] = false;
 				}
+				$version_split = explode("_", VERSION);
+				if (version_compare($version_split[0], "3.1.0.0") >= 0) {
+					$data["bs4"] = true;
+				}
+				else {
+					$data["bs4"] = false;
+				}
 			]]></add>
 		</operation>
 	</file>
@@ -93,7 +100,7 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 		<operation>
 			<search><![CDATA[<a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info">]]></search>
 			<add position="replace"><![CDATA[
-{% if pdf_wizard_settings_use_pdf_button_on_admin_order_info %}<a href="{{ pdf_wizard_admin_orderinfo_base_href }}" target="_blank" data-toggle="tooltip" title="PDF Wizard (Order Info)" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> PDF</a> {% endif %}<a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info">
+{% if pdf_wizard_settings_use_pdf_button_on_admin_order_info %}<a href="{{ pdf_wizard_admin_orderinfo_base_href }}" target="_blank" data-toggle="tooltip" title="PDF Wizard (Order Info)" class="btn btn-danger"><i class="{% if bs4 %}far fa-file-pdf{% else %}fa fa-file-pdf-o{% endif %}"></i> PDF</a> {% endif %}<a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info">
 			]]></add>
 		</operation>
 	</file>
