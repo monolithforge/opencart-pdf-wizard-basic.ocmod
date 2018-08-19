@@ -7,7 +7,7 @@ Colors and font families can be altered to match your stores design.
 * @author     Original Author <support@monolithforge.com>
 * @copyright  2017-2018 Monolith Forge, LLC
 * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
-* @version    3-8-dev
+* @version    3-8-a1
 
 -------
 
@@ -45,10 +45,8 @@ PDF Wizard Install Instructions
 
 Changelog:
 
-3-8-dev
-    Fix admin form for 3.1.0.0_a1 (Bootstrap 4)
-    Fix admin PDF button on order page
-    Fix frontend PDF button on order page
+3-8-a1
+    3.1.0.0_a1 (Bootstrap 4) compatibility
 
 3-7
     Unused file cleanup to get under 5MB opencart threshold
