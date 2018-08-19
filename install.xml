@@ -86,6 +86,13 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 				$pdf_wizard_link = $this->url->link('extension/pdf_wizard', 'user_token=' . $this->session->data['user_token'], true);
 				$data["pdf_wizard_link"] = $pdf_wizard_link;
 			}
+			$version_split = explode("_", VERSION);
+			if (version_compare($version_split[0], "3.1.0.0") >= 0) {
+				$data["bs4"] = true;
+			}
+			else {
+				$data["bs4"] = false;
+			}
 			]]></add>
 		</operation>
 	</file>
@@ -94,7 +101,7 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 			<search><![CDATA[{% if not modification.enabled %}]]></search>
 			<add position="before"><![CDATA[
 			{% if modification.name == "PDF Wizard" and pdf_wizard_link != "" %}
-			<a href="{{ pdf_wizard_link }}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+			<a href="{{ pdf_wizard_link }}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="{% if bs4 %}fas fa-pencil-alt{% else %}fa fa-pencil{% endif %}"></i></a>
 			{% endif %}
 			]]></add>
 		</operation>
