@@ -47,6 +47,8 @@ Changelog:
 
 3-8-dev
     Fix admin form for 3.1.0.0_a1 (Bootstrap 4)
+    Fix admin PDF button on order page
+    Fix frontend PDF button on order page
 
 3-7
     Unused file cleanup to get under 5MB opencart threshold

@@ -28,6 +28,7 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 	</file>
 	
 	
+	<!-- 3.0.2.0 -->
 	<file path="catalog/controller/account/order.php">
 		<operation>
 			<search><![CDATA[$data['continue'] = $this->url->link('account/order', '', true);]]></search>
@@ -50,12 +51,28 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 			]]></add>
 		</operation>
 	</file>
-	<!-- 3.1.0.0 uses h1 instead of h2 -->
+	
+	
+	<!-- 3.1.0.0 -->
+	<file path="catalog/controller/account/order.php">
+		<operation>
+			<search><![CDATA[$data['continue'] = $this->url->link('account/order', 'language=' . $this->config->get('config_language'));]]></search>
+			<add position="after"><![CDATA[
+			$data['pdf_wizard_orderinfo_base_href'] = $this->url->link('extension/module/pdf_wizard/orderinfo', 'order_id=' . $order_id, true);
+			if (trim($this->config->get('pdf_wizard_settings_use_pdf_button_on_order_details')) == "" || $this->config->get('pdf_wizard_settings_use_pdf_button_on_order_details') == "1") {
+				$data["pdf_wizard_settings_use_pdf_button_on_order_details"] = true;
+			}
+			else {
+				$data["pdf_wizard_settings_use_pdf_button_on_order_details"] = false;
+			}
+			]]></add>
+		</operation>
+	</file>
 	<file path="catalog/view/theme/*/template/account/order_info.twig">
 		<operation>
 			<search><![CDATA[</h1>]]></search>
 			<add position="replace"><![CDATA[
-{% if pdf_wizard_settings_use_pdf_button_on_order_details %}<div class="float-right"><a href="{{pdf_wizard_orderinfo_base_href}}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf" aria-hidden="true"></i> PDF</a>{% endif %}</h2>
+{% if pdf_wizard_settings_use_pdf_button_on_order_details %}<div class="float-right"><a href="{{pdf_wizard_orderinfo_base_href}}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf" aria-hidden="true"></i> PDF</a>{% endif %}</h1>
 			]]></add>
 		</operation>
 	</file>
