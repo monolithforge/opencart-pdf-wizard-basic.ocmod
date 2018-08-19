@@ -50,7 +50,15 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 			]]></add>
 		</operation>
 	</file>
-	
+	<!-- 3.1.0.0 uses h1 instead of h2 -->
+	<file path="catalog/view/theme/*/template/account/order_info.twig">
+		<operation>
+			<search><![CDATA[</h1>]]></search>
+			<add position="replace"><![CDATA[
+{% if pdf_wizard_settings_use_pdf_button_on_order_details %}<div class="float-right"><a href="{{pdf_wizard_orderinfo_base_href}}" target="_blank" class="btn btn-danger"><i class="far fa-file-pdf" aria-hidden="true"></i> PDF</a>{% endif %}</h2>
+			]]></add>
+		</operation>
+	</file>
 	
 	<file path="admin/controller/marketplace/modification.php">
 		<operation>
