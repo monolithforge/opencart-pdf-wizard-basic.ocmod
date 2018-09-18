@@ -1,7 +1,7 @@
 <modification>
 	<name>PDF Wizard</name>
 	<code>monolithforge-pdf-wizard</code>
-	<version>3-8-a1</version>
+	<version>3-8</version>
 	<author>monolithforge.com</author>
 	<link>https://www.monolithforge.com</link>
 	<file path="admin/controller/common/column_left.php">
@@ -47,7 +47,7 @@ $_['text_pdf_wizard']             = 'PDF Wizard';
 		<operation>
 			<search><![CDATA[</h2>]]></search>
 			<add position="replace"><![CDATA[
-{% if pdf_wizard_settings_use_pdf_button_on_order_details %}<div class="pull-right"><a href="{{pdf_wizard_orderinfo_base_href}}" target="_blank" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>{% endif %}</h2>
+{% if pdf_wizard_settings_use_pdf_button_on_order_details %}<div class="pull-right"><a href="{{pdf_wizard_orderinfo_base_href}}" target="_blank" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a></div>{% endif %}</h2>
 			]]></add>
 		</operation>
 	</file>
