@@ -6,7 +6,7 @@
  * @author     Original Author <support@monolithforge.com>
  * @copyright  2017-2018 Monolith Forge, LLC
  * @license    https://www.monolithforge.com/license/pdf-wizard-basic-license.txt
- * @version    3-8
+ * @version    3-9
  */
 class ControllerExtensionPdfWizard extends Controller { 
 	private $error = array();
@@ -240,7 +240,7 @@ class ControllerExtensionPdfWizard extends Controller {
         
         //load post/config/default into form
         foreach ($pdf_wizard->default_data as $k => $v) {
-            if ($this->config->get($k)) {
+            if ($this->config->get($k) || $this->config->get($k) === "0") {
                 $data[$k] = $this->config->get($k);
             }
             else {
